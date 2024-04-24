@@ -19,9 +19,10 @@ namespace Videospiel
         //grafika na okně z pictureboxu
         Graphics mobjGrafika;
 
+        //kulicka
+        clsKulicka mobjKulicka;
         //souřadnice kuličky
-        int mintKulickaX, mintKulickaY;
-
+        
         public Form1()
         {
             InitializeComponent();
@@ -38,10 +39,12 @@ namespace Videospiel
             //vytvoření bitmapy A grafiky
             mobjBitmapa = new Bitmap (pbPlatno.Width, pbPlatno.Height); 
             mobjGrafikaVram = Graphics.FromImage(mobjBitmapa);
-            //nastavení kuličkyy
-            mintKulickaX = mintKulickaY = 10;
+
+            //vytvořit kuličku
+            mobjKulicka = new clsKulicka(10, 10, 2, 10, mobjGrafikaVram);
+
             //nastavení timeru
-            tmrRedraw.Interval = 500;
+            tmrRedraw.Interval = 10;
             tmrRedraw.Enabled = true;
         }
         //--------------------------------
@@ -49,13 +52,16 @@ namespace Videospiel
         //--------------------------------
         private void tmrRedraw_Tick(object sender, EventArgs e)
         {
-
+            //vymazat
+            mobjGrafikaVram.Clear(Color.White);
             //nakresli kolečko
-            mobjGrafikaVram.FillEllipse(Brushes.Red, mintKulickaX, mintKulickaY, 10, 10);
-            
+            mobjKulicka.Vykreslise();
+
             //posun kuličky
-            mintKulickaX = mintKulickaX + 5;
-            mintKulickaY = mintKulickaY + 5;
+            mobjKulicka.Posunse();
+
+            //kolize
+           
             //vykresli bitmapu na picturebox
             mobjGrafika.DrawImage(mobjBitmapa, 0, 0);
         }
