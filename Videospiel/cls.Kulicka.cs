@@ -15,6 +15,7 @@ namespace Videospiel
         int mintKulickaX, mintKulickaY;
         int mintPosunX, mintPosunY;
         int mintPolomer;
+        Brush mobjBrush;
         //
         //konstruktor
         //
@@ -24,14 +25,29 @@ namespace Videospiel
             mintKulickaY =  intKulickaY;
             mintPosunX = mintPosunY = intPosun;
             mintPolomer = intPolomer;
+
+            mobjBrush = Brushes.Red;
+
             mobjPlatno = objPlatno;
+
+        }
+        public Brush StetecKulicky
+        {
+            get 
+            {
+                return mobjBrush;
+            }
+            set 
+            {
+                mobjBrush = value;
+            }
         }
         //
         //vykreslení
         //
         public void Vykreslise()
         {
-            mobjPlatno.FillEllipse(Brushes.Red, mintKulickaX, mintKulickaY, mintPolomer, mintPolomer);
+            mobjPlatno.FillEllipse(mobjBrush, mintKulickaX, mintKulickaY, mintPolomer, mintPolomer);
         }
         //
         //posun se a kolize
