@@ -42,6 +42,16 @@ namespace Videospiel
                 mobjBrush = value;
             }
         }
+        public Rectangle rectObrys
+        {
+            get
+            {
+                Rectangle lobjObrys;
+                lobjObrys = new Rectangle(mintKulickaX, mintKulickaY, mintPolomer, mintPolomer);
+                return lobjObrys;
+            }
+
+        }
         //
         //vykreslení
         //
@@ -65,6 +75,12 @@ namespace Videospiel
                 mintPosunY = mintPosunY * (-1);
             if (mintKulickaX < 0)
                 mintPosunX = mintPosunX * (-1);
+
+
+        }
+        public void ZmenPohybY()
+        {
+            mintPosunY = mintPosunY * (-1);
         }
     }
 }

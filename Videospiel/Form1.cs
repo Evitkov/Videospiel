@@ -48,7 +48,7 @@ namespace Videospiel
             mobjGrafikaVram = Graphics.FromImage(mobjBitmapa);
 
             //vytvořit kuličku
-            mobjKulicka = new clsKulicka(10, 10, 2, 10, mobjGrafikaVram);
+            mobjKulicka = new clsKulicka(200, 200, 2, 10, mobjGrafikaVram);
             mobjKulicka.StetecKulicky = Brushes.Red;
             //vytvořit cihly
             
@@ -81,17 +81,38 @@ namespace Videospiel
             //nakresli kolečko
             mobjKulicka.Vykreslise();
 
+            for (int i = 0; i < PocetCihel; i++)
+            {
+                //test kolize s kuličkou
+                if (true ==TestKolizeCihlaKulicka(mobjKulicka.rectObrys, mobjCihly[i].rectObrys))
+                {
+                    mobjCihly[i].blVisible = false;
+
+                    //zmena pohybu kulicky
+                    mobjKulicka.ZmenPohybY();
+                }
+                //vykreslení cihly
+                mobjCihly[i].Vykreslise();
+                
+            }
+
             //posun kuličky
             mobjKulicka.Posunse();
 
-            for (int i = 0; i < PocetCihel; i++)
-            {
-                mobjCihly[i].Vykreslise();
-            }
-            //kolize
-
             //vykresli bitmapu na picturebox
             mobjGrafika.DrawImage(mobjBitmapa, 0, 0);
+            //
+            //test kolize cihly a kulicky
+            //
+        }
+        private bool TestKolizeCihlaKulicka(Rectangle objRectKulicka, Rectangle objRectCihla)
+                    {
+            Rectangle lobjPrekryv;
+            lobjPrekryv = Rectangle.Intersect(objRectKulicka,objRectCihla);
+            //test zda existuje překryvný obdelník
+            if(lobjPrekryv.Width == 0 && lobjPrekryv.Height ==0 )
+            return false;
+            return true;
         }
     }
 }

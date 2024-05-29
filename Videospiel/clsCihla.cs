@@ -39,11 +39,40 @@ namespace Videospiel
                 mobjBrush = value;
             }
         }
+        //
+        //Vracím obrysový objekt
+        //
+        public Rectangle rectObrys
+        {
+            get
+            {
+                Rectangle lobjObrys;
+                lobjObrys = new Rectangle(mintCihlaX, mintCihlaY, mintCihlaSirka, mintCihlaVyska);
+                if(mblIsVisible==false)
+                {
+                    lobjObrys = new Rectangle(0,0,0,0);
+                }
+                return lobjObrys;
+            }
+
+        }
+        //
+        //nastavení viditelnosti cihly
+        //
+        public bool blVisible
+        {
+            
+            set
+            {
+                mblIsVisible = value;
+            }
+        }
         public void Vykreslise()
         {
-            if (mblIsVisible = false) return;
+            if (mblIsVisible == false) return;
              mobjPlatno.FillRectangle(mobjBrush, mintCihlaX, mintCihlaY, mintCihlaSirka, mintCihlaVyska); 
-     ;
+     
         }
+        
     }
 }
