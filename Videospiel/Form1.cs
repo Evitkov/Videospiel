@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
 namespace Videospiel
 {
     
@@ -25,6 +27,7 @@ namespace Videospiel
         clsKulicka mobjKulicka;
         //souřadnice kuličky
         clsCihla [] mobjCihly;
+        clsPlosina mobjPlosina;
 
         const int PocetCihel = 65;
         const int mintPrvniCihlyX = 10, mintPrvniCihlyY = 10,mintCihlaMezera = 5;
@@ -39,19 +42,25 @@ namespace Videospiel
         //--------------------------------
         private void Form1_Load(object sender, EventArgs e)
         {
+            
+
             int lintCihlaX, lintCihlaY;
             //vytvoření grafiky picteruboxu
             mobjGrafika = pbPlatno.CreateGraphics();
-
+            
             //vytvoření bitmapy A grafiky
+            
             mobjBitmapa = new Bitmap (pbPlatno.Width, pbPlatno.Height); 
             mobjGrafikaVram = Graphics.FromImage(mobjBitmapa);
-
+            
             //vytvořit kuličku
             mobjKulicka = new clsKulicka(200, 200, 2, 10, mobjGrafikaVram);
             mobjKulicka.StetecKulicky = Brushes.Red;
+            mobjPlosina = new clsPlosina(350, 380, 60, 10, mobjGrafikaVram);
+            mobjPlosina.StetecPlosina = Brushes.Blue;
+            mobjPlosina.mintSouradnicePlosiny = 350;
             //vytvořit cihly
-            
+
             mobjCihly = new clsCihla[PocetCihel];
             lintCihlaX = mintPrvniCihlyX;
             lintCihlaY = mintPrvniCihlyY;
@@ -71,6 +80,33 @@ namespace Videospiel
             tmrRedraw.Interval = 10;
             tmrRedraw.Enabled = true;
         }
+
+        public void PosunPlosiny(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.A:
+                    mobjPlosina.mintSouradnicePlosiny = mobjPlosina.mintSouradnicePlosiny - 5;
+                    break;
+                case Keys.D:
+                    mobjPlosina.mintSouradnicePlosiny = mobjPlosina.mintSouradnicePlosiny + 5;
+                    break;
+                    
+            }
+        }
+        public bool blVisible
+        {
+            get
+            {
+                return blVisible;
+            }
+            set
+            {
+                blVisible = value;
+            }
+        }
+        
+
         //--------------------------------
         //překreslení obrazu
         //--------------------------------
@@ -80,6 +116,7 @@ namespace Videospiel
             mobjGrafikaVram.Clear(Color.White);
             //nakresli kolečko
             mobjKulicka.Vykreslise();
+            mobjPlosina.Vykreslise();
 
             for (int i = 0; i < PocetCihel; i++)
             {
@@ -87,6 +124,12 @@ namespace Videospiel
                 if (true ==TestKolizeCihlaKulicka(mobjKulicka.rectObrys, mobjCihly[i].rectObrys))
                 {
                     mobjCihly[i].blVisible = false;
+
+                    //zmena pohybu kulicky
+                    mobjKulicka.ZmenPohybY();
+                }
+                if (true == TestKolizeCihlaKulicka(mobjKulicka.rectObrys, mobjPlosina.rectObrys))
+                {
 
                     //zmena pohybu kulicky
                     mobjKulicka.ZmenPohybY();
@@ -112,6 +155,14 @@ namespace Videospiel
             //test zda existuje překryvný obdelník
             if(lobjPrekryv.Width == 0 && lobjPrekryv.Height ==0 )
             return false;
+            return true;
+        }
+        private bool TestKolizePlosinaKulicka(Rectangle objRectKulicka, Rectangle objRectPlosina)
+        {
+            Rectangle lobjPrekryv;
+            lobjPrekryv = Rectangle.Intersect(objRectKulicka, objRectPlosina);
+            if (lobjPrekryv.Width == 0 && lobjPrekryv.Height == 0)
+                return false;
             return true;
         }
     }

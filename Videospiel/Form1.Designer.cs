@@ -59,6 +59,7 @@
             this.Name = "Form1";
             this.Text = "Matyldy autoškola simulátor";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PosunPlosiny);
             ((System.ComponentModel.ISupportInitialize)(this.pbPlatno)).EndInit();
             this.ResumeLayout(false);
 

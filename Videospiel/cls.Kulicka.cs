@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace Videospiel
         int mintKulickaX, mintKulickaY;
         int mintPosunX, mintPosunY;
         int mintPolomer;
+        int mintpbPlatnoHeight;
         Brush mobjBrush;
         //
         //konstruktor
@@ -29,6 +31,7 @@ namespace Videospiel
             mobjBrush = Brushes.Red;
 
             mobjPlatno = objPlatno;
+            mintpbPlatnoHeight = 742;
 
         }
         public Brush StetecKulicky
@@ -81,6 +84,16 @@ namespace Videospiel
         public void ZmenPohybY()
         {
             mintPosunY = mintPosunY * (-1);
+        }
+        public void KonecHry()
+        {
+            if (mintKulickaY == mintpbPlatnoHeight - 10)
+            {
+                
+                Form2 form2 = new Form2();
+                
+                form2.Show();
+            }
         }
     }
 }

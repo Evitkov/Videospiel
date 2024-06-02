@@ -28,6 +28,7 @@ namespace Videospiel
             mobjPlatno = objPlatno;
             mblIsVisible = true;
         }
+
         public Brush StetecCihly
         {
             get
