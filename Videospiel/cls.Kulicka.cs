@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Videospiel
 {
@@ -18,6 +19,10 @@ namespace Videospiel
         int mintPolomer;
         int mintpbPlatnoHeight;
         Brush mobjBrush;
+        bool blKonecVideohry;
+
+
+
         //
         //konstruktor
         //
@@ -29,9 +34,9 @@ namespace Videospiel
             mintPolomer = intPolomer;
 
             mobjBrush = Brushes.Red;
-
             mobjPlatno = objPlatno;
             mintpbPlatnoHeight = 742;
+            blKonecVideohry = false;
 
         }
         public Brush StetecKulicky
@@ -55,6 +60,17 @@ namespace Videospiel
             }
 
         }
+        public bool blKonec
+        {
+            get
+            {
+                return blKonecVideohry;
+            }
+            set
+            {
+                blKonecVideohry = value;
+            }
+        }
         //
         //vykreslení
         //
@@ -70,8 +86,15 @@ namespace Videospiel
             mintKulickaX = mintKulickaX + mintPosunX;
             mintKulickaY = mintKulickaY + mintPosunY;
 
-            if ((mintKulickaY + mintPolomer) > mobjPlatno.VisibleClipBounds.Height)
-                mintPosunY = mintPosunY * (-1);
+            if ((mintKulickaY + mintPolomer) == mobjPlatno.VisibleClipBounds.Height)
+            {
+
+                MessageBox.Show("Game Over");
+                mintKulickaX = 200;
+                mintKulickaY = 200;
+                mobjPlatno.Clear(Color.White);
+                System.Windows.Forms.Application.Restart();
+            }
             if ((mintKulickaX + mintPolomer) > mobjPlatno.VisibleClipBounds.Width)
                 mintPosunX = mintPosunX * (-1);
             if (mintKulickaY < 0)
@@ -81,18 +104,32 @@ namespace Videospiel
 
 
         }
+        public void Konechry()
+        {
+            if ((mintKulickaY + mintPolomer) == mobjPlatno.VisibleClipBounds.Height)
+            {
+
+                MessageBox.Show("Game Over");
+                mintKulickaX = 200;
+                mintKulickaY = 200;
+                
+                mobjPlatno.Clear(Color.White);
+                blKonecVideohry = true;
+            }
+         }
         public void ZmenPohybY()
         {
             mintPosunY = mintPosunY * (-1);
         }
-        public void KonecHry()
+        public int mintVyskaKulicky
         {
-            if (mintKulickaY == mintpbPlatnoHeight - 10)
+            get
             {
-                
-                Form2 form2 = new Form2();
-                
-                form2.Show();
+                return mintKulickaY;
+            }
+            set
+            {
+                mintKulickaY = value;
             }
         }
     }

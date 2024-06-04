@@ -68,6 +68,7 @@ namespace Videospiel
                 mblIsVisible = value;
             }
         }
+        
         public void Vykreslise()
         {
             if (mblIsVisible == false) return;

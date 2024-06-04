@@ -31,7 +31,8 @@ namespace Videospiel
 
         const int PocetCihel = 65;
         const int mintPrvniCihlyX = 10, mintPrvniCihlyY = 10,mintCihlaMezera = 5;
-        const int mintSirkaCihly = 50, mintVyskaCihly = 15;
+        const int mintSirkaCihly = 50, mintVyskaCihly = 15; 
+        int VyskaKulicky;
         public Form1()
         {
             InitializeComponent();
@@ -59,6 +60,7 @@ namespace Videospiel
             mobjPlosina = new clsPlosina(350, 380, 60, 10, mobjGrafikaVram);
             mobjPlosina.StetecPlosina = Brushes.Blue;
             mobjPlosina.mintSouradnicePlosiny = 350;
+            int mintVyskaKulicky = mobjKulicka.mintVyskaKulicky;
             //vytvořit cihly
 
             mobjCihly = new clsCihla[PocetCihel];
@@ -77,7 +79,7 @@ namespace Videospiel
                 }
             }
             //nastavení timeru
-            tmrRedraw.Interval = 10;
+            tmrRedraw.Interval = 1;
             tmrRedraw.Enabled = true;
         }
 
@@ -134,6 +136,7 @@ namespace Videospiel
                     //zmena pohybu kulicky
                     mobjKulicka.ZmenPohybY();
                 }
+
                 //vykreslení cihly
                 mobjCihly[i].Vykreslise();
                 
@@ -144,9 +147,8 @@ namespace Videospiel
 
             //vykresli bitmapu na picturebox
             mobjGrafika.DrawImage(mobjBitmapa, 0, 0);
-            //
-            //test kolize cihly a kulicky
-            //
+
+            
         }
         private bool TestKolizeCihlaKulicka(Rectangle objRectKulicka, Rectangle objRectCihla)
                     {
