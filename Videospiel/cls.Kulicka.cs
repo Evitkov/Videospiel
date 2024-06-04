@@ -23,9 +23,9 @@ namespace Videospiel
 
 
 
-        //
+        //--------------------------------
         //konstruktor
-        //
+        //--------------------------------
         public clsKulicka (int intKulickaX,int intKulickaY, int intPosun, int intPolomer, Graphics objPlatno)
         {
             mintKulickaX = intKulickaX;
@@ -39,6 +39,9 @@ namespace Videospiel
             blKonecVideohry = false;
 
         }
+        //--------------------------------
+        //zviditelnění proměnné StetecKulicky
+        //--------------------------------
         public Brush StetecKulicky
         {
             get 
@@ -50,6 +53,9 @@ namespace Videospiel
                 mobjBrush = value;
             }
         }
+        //-------------------------------
+        //Vracím obrysový objekt
+        //-------------------------------
         public Rectangle rectObrys
         {
             get
@@ -60,27 +66,17 @@ namespace Videospiel
             }
 
         }
-        public bool blKonec
-        {
-            get
-            {
-                return blKonecVideohry;
-            }
-            set
-            {
-                blKonecVideohry = value;
-            }
-        }
-        //
+        
+        //-------------------------------
         //vykreslení
-        //
+        //--------------------------
         public void Vykreslise()
         {
             mobjPlatno.FillEllipse(mobjBrush, mintKulickaX, mintKulickaY, mintPolomer, mintPolomer);
         }
-        //
-        //posun se a kolize
-        //
+        //---------------------------------------
+        //posuny a kolize kulicky
+        //--------------------------------------
         public void Posunse ()
         {
             mintKulickaX = mintKulickaX + mintPosunX;
@@ -88,11 +84,9 @@ namespace Videospiel
 
             if ((mintKulickaY + mintPolomer) == mobjPlatno.VisibleClipBounds.Height)
             {
-
+                //ukončení hry
                 MessageBox.Show("Game Over");
-                mintKulickaX = 200;
-                mintKulickaY = 200;
-                mobjPlatno.Clear(Color.White);
+                //restartování programu
                 System.Windows.Forms.Application.Restart();
             }
             if ((mintKulickaX + mintPolomer) > mobjPlatno.VisibleClipBounds.Width)
@@ -104,23 +98,17 @@ namespace Videospiel
 
 
         }
-        public void Konechry()
-        {
-            if ((mintKulickaY + mintPolomer) == mobjPlatno.VisibleClipBounds.Height)
-            {
-
-                MessageBox.Show("Game Over");
-                mintKulickaX = 200;
-                mintKulickaY = 200;
-                
-                mobjPlatno.Clear(Color.White);
-                blKonecVideohry = true;
-            }
-         }
+        
+        //---------------------------------------
+        //rutina na změnu pohybu kuličky
+        //--------------------------------------
         public void ZmenPohybY()
         {
             mintPosunY = mintPosunY * (-1);
         }
+        //--------------------------------
+        //zviditelnění proměnné mintVyskaKulicky
+        //--------------------------------
         public int mintVyskaKulicky
         {
             get

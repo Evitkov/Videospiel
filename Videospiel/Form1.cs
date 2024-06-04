@@ -28,7 +28,7 @@ namespace Videospiel
         //souřadnice kuličky
         clsCihla [] mobjCihly;
         clsPlosina mobjPlosina;
-
+        //integery které budu používat
         const int PocetCihel = 65;
         const int mintPrvniCihlyX = 10, mintPrvniCihlyY = 10,mintCihlaMezera = 5;
         const int mintSirkaCihly = 50, mintVyskaCihly = 15; 
@@ -57,12 +57,12 @@ namespace Videospiel
             //vytvořit kuličku
             mobjKulicka = new clsKulicka(200, 200, 2, 10, mobjGrafikaVram);
             mobjKulicka.StetecKulicky = Brushes.Red;
-            mobjPlosina = new clsPlosina(350, 380, 60, 10, mobjGrafikaVram);
+            mobjPlosina = new clsPlosina(350, 380, 90, 10, mobjGrafikaVram);
             mobjPlosina.StetecPlosina = Brushes.Blue;
             mobjPlosina.mintSouradnicePlosiny = 350;
             int mintVyskaKulicky = mobjKulicka.mintVyskaKulicky;
-            //vytvořit cihly
-
+            
+            //vytvoření pole cihel
             mobjCihly = new clsCihla[PocetCihel];
             lintCihlaX = mintPrvniCihlyX;
             lintCihlaY = mintPrvniCihlyY;
@@ -82,7 +82,9 @@ namespace Videospiel
             tmrRedraw.Interval = 1;
             tmrRedraw.Enabled = true;
         }
-
+        //--------------------------------
+        //ovládání plošiny
+        //--------------------------------
         public void PosunPlosiny(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -96,6 +98,9 @@ namespace Videospiel
                     
             }
         }
+        //--------------------------------
+        //Proměnná - jsou cihly vidět
+        //--------------------------------
         public bool blVisible
         {
             get
@@ -150,6 +155,9 @@ namespace Videospiel
 
             
         }
+        //--------------------------------
+        //Test na Kolize Cihly a Kulicky
+        //--------------------------------
         private bool TestKolizeCihlaKulicka(Rectangle objRectKulicka, Rectangle objRectCihla)
                     {
             Rectangle lobjPrekryv;
@@ -159,10 +167,14 @@ namespace Videospiel
             return false;
             return true;
         }
+        //--------------------------------
+        //Test na Kolize Plosiny a Kulicky
+        //--------------------------------
         private bool TestKolizePlosinaKulicka(Rectangle objRectKulicka, Rectangle objRectPlosina)
         {
             Rectangle lobjPrekryv;
             lobjPrekryv = Rectangle.Intersect(objRectKulicka, objRectPlosina);
+            //test zda existuje překryvný obdelník
             if (lobjPrekryv.Width == 0 && lobjPrekryv.Height == 0)
                 return false;
             return true;

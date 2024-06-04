@@ -16,6 +16,10 @@ namespace Videospiel
         Brush mobjBrush;
         //zda je vidět
         bool mblIsVisible;
+
+        //--------------------------------
+        //konstruktor
+        //--------------------------------
         public clsCihla(int intCihlaX, int intCihlaY, int intCihlaSirka, int intCihlaVyska, Graphics objPlatno)
         {
             mintCihlaX = intCihlaX;
@@ -28,7 +32,9 @@ namespace Videospiel
             mobjPlatno = objPlatno;
             mblIsVisible = true;
         }
-
+        //--------------------------------
+        //zviditelnění proměnné StetecCihly
+        //--------------------------------
         public Brush StetecCihly
         {
             get
@@ -40,9 +46,9 @@ namespace Videospiel
                 mobjBrush = value;
             }
         }
-        //
+        //-------------------------------
         //Vracím obrysový objekt
-        //
+        //-------------------------------
         public Rectangle rectObrys
         {
             get
@@ -57,9 +63,9 @@ namespace Videospiel
             }
 
         }
-        //
+        //----------------------------------
         //nastavení viditelnosti cihly
-        //
+        //---------------------------------
         public bool blVisible
         {
             
@@ -68,7 +74,9 @@ namespace Videospiel
                 mblIsVisible = value;
             }
         }
-        
+        //-------------------------------
+        //vykreslení
+        //--------------------------
         public void Vykreslise()
         {
             if (mblIsVisible == false) return;

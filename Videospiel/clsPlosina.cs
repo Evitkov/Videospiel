@@ -15,6 +15,9 @@ namespace Videospiel
         int mintPlosinaX, mintPlosinaY;
         int mintPlosinaSirka, mintPlosinaVyska;
         Brush mobjBrush;
+        //--------------------------------
+        //konstruktor
+        //--------------------------------
         public clsPlosina(int intPlosinaX, int intPlosinaY, int intPlosinaSirka, int intPlosinaVyska, Graphics objPlatno)
         {
             mintPlosinaX = intPlosinaX;
@@ -27,6 +30,9 @@ namespace Videospiel
             mobjPlatno = objPlatno;
          
         }
+        //--------------------------------
+        //zviditelnění proměnné mintSouradnicePlosiny
+        //--------------------------------
         public int mintSouradnicePlosiny
         {
             get
@@ -38,6 +44,9 @@ namespace Videospiel
                 mintPlosinaX = value;
             }
         }
+        //--------------------------------
+        //zviditelnění proměnné StetecPlosina
+        //--------------------------------
         public Brush StetecPlosina
         {
             get
@@ -49,6 +58,9 @@ namespace Videospiel
                 mobjBrush = value;
             }
         }
+        //-------------------------------
+        //Vracím obrysový objekt
+        //-------------------------------
         public Rectangle rectObrys
         {
             get
@@ -59,6 +71,9 @@ namespace Videospiel
             }
 
         }
+        //-------------------------------
+        //vykreslení
+        //--------------------------
         public void Vykreslise()
         {
             
