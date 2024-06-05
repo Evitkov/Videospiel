@@ -32,8 +32,8 @@ namespace Videospiel
         const int PocetCihel = 65;
         const int mintPrvniCihlyX = 10, mintPrvniCihlyY = 10,mintCihlaMezera = 5;
         const int mintSirkaCihly = 50, mintVyskaCihly = 15;
-        const int mintSirkaPlosiny = 90;
-        const int mintPosunPlosiny = 5;
+        const int mintSirkaPlosiny = 120;
+        const int mintPosunPlosiny = 10;
         public Form1()
         {
             InitializeComponent();
@@ -58,7 +58,7 @@ namespace Videospiel
             //vytvořit kuličku
             mobjKulicka = new clsKulicka(200, 200, 2, 10, mobjGrafikaVram);
             mobjKulicka.StetecKulicky = Brushes.Red;
-            mobjPlosina = new clsPlosina(350, 380, 90, 10, mobjGrafikaVram);
+            mobjPlosina = new clsPlosina(350, 380, mintSirkaPlosiny, 10, mobjGrafikaVram);
             mobjPlosina.StetecPlosina = Brushes.Blue;
             mobjPlosina.mintSouradnicePlosiny = 350;
             int mintVyskaKulicky = mobjKulicka.mintVyskaKulicky;
@@ -155,6 +155,7 @@ namespace Videospiel
         //--------------------------------
         private void tmrRedraw_Tick(object sender, EventArgs e)
         {
+            bool lblAnyIsVisible = false;
             //vymazat
             mobjGrafikaVram.Clear(Color.White);
             //nakresli kolečko
@@ -183,9 +184,16 @@ namespace Videospiel
                 
                 if (mobjCihly[i].blVisible == true)
                 {
-
-                    
+                    lblAnyIsVisible = true;
                 }
+            }
+            if (lblAnyIsVisible == false)
+            {
+                tmrRedraw.Enabled = false;
+                //ukončení hry
+                MessageBox.Show("Vyhrál jsi");
+                //restartování programu
+                System.Windows.Forms.Application.Restart();
             }
 
             //posun kuličky
