@@ -73,6 +73,10 @@ namespace Videospiel
             {
                 mblIsVisible = value;
             }
+            get
+            {
+                return mblIsVisible;
+            }
         }
         //-------------------------------
         //vykreslení
