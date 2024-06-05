@@ -31,8 +31,9 @@ namespace Videospiel
         //integery které budu používat
         const int PocetCihel = 65;
         const int mintPrvniCihlyX = 10, mintPrvniCihlyY = 10,mintCihlaMezera = 5;
-        const int mintSirkaCihly = 50, mintVyskaCihly = 15; 
-        int VyskaKulicky;
+        const int mintSirkaCihly = 50, mintVyskaCihly = 15;
+        const int mintSirkaPlosiny = 90;
+        const int mintPosunPlosiny = 5;
         public Form1()
         {
             InitializeComponent();
@@ -82,20 +83,55 @@ namespace Videospiel
             tmrRedraw.Interval = 1;
             tmrRedraw.Enabled = true;
         }
-        //--------------------------------
-        //ovládání plošiny
-        //--------------------------------
+        //-------------------------------------------
+        //ovládání plošiny a její omezení na platno
+        //-------------------------------------------
         public void PosunPlosiny(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            bool lblPlosinaNaObrazovce = true;
+            //je plošina celá na plátně
+            if (mobjPlosina.mintSouradnicePlosiny<0 || mobjPlosina.mintSouradnicePlosiny + mintSirkaPlosiny > pbPlatno.Width) 
             {
-                case Keys.A:
-                    mobjPlosina.mintSouradnicePlosiny = mobjPlosina.mintSouradnicePlosiny - 5;
-                    break;
-                case Keys.D:
-                    mobjPlosina.mintSouradnicePlosiny = mobjPlosina.mintSouradnicePlosiny + 5;
-                    break;
-                    
+                lblPlosinaNaObrazovce = false;
+            }
+            //plošina je celá na plátně
+                if (lblPlosinaNaObrazovce==true)
+                {
+                    switch (e.KeyCode)
+                    {
+                      case Keys.A:
+                         mobjPlosina.mintSouradnicePlosiny = mobjPlosina.mintSouradnicePlosiny - mintPosunPlosiny;
+                      break;
+                      case Keys.D:
+                         mobjPlosina.mintSouradnicePlosiny = mobjPlosina.mintSouradnicePlosiny + mintPosunPlosiny;
+                      break;
+                     }
+                }
+                //plošina narazila na levý bok
+            if (mobjPlosina.mintSouradnicePlosiny < 0)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.A:
+                        mobjPlosina.mintSouradnicePlosiny = mobjPlosina.mintSouradnicePlosiny;
+                        break;
+                    case Keys.D:
+                        mobjPlosina.mintSouradnicePlosiny = mobjPlosina.mintSouradnicePlosiny + mintPosunPlosiny;
+                        break;
+                }
+            }
+            //plošina narazila na pravý bok
+            if (mobjPlosina.mintSouradnicePlosiny + mintSirkaPlosiny > pbPlatno.Width)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.A:
+                        mobjPlosina.mintSouradnicePlosiny = mobjPlosina.mintSouradnicePlosiny - mintPosunPlosiny;
+                        break;
+                    case Keys.D:
+                        mobjPlosina.mintSouradnicePlosiny = mobjPlosina.mintSouradnicePlosiny;
+                        break;
+                }
             }
         }
         //--------------------------------
@@ -145,6 +181,11 @@ namespace Videospiel
                 //vykreslení cihly
                 mobjCihly[i].Vykreslise();
                 
+                if (mobjCihly[i].blVisible == true)
+                {
+
+                    
+                }
             }
 
             //posun kuličky

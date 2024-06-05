@@ -53,6 +53,7 @@ namespace Videospiel
                 mobjBrush = value;
             }
         }
+        
         //-------------------------------
         //Vracím obrysový objekt
         //-------------------------------
