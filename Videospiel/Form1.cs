@@ -79,7 +79,7 @@ namespace Videospiel
                 }
             }
             //nastavení timeru
-            tmrRedraw.Interval = 10;
+            tmrRedraw.Interval = 1;
             tmrRedraw.Enabled = true;
         }
         //--------------------------------
@@ -124,7 +124,6 @@ namespace Videospiel
             //nakresli kolečko
             mobjKulicka.Vykreslise();
             mobjPlosina.Vykreslise();
-            bool lblIfanyVisible = false;
 
             for (int i = 0; i < PocetCihel; i++)
             {
@@ -142,19 +141,10 @@ namespace Videospiel
                     //zmena pohybu kulicky
                     mobjKulicka.ZmenPohybY();
                 }
-                if (true == mobjCihly[i].blVisible)
-                    { 
-                    lblIfanyVisible = true;
-                    }
 
-            }
-            if (false == lblIfanyVisible)
-            {
-                tmrRedraw.Enabled = false;
-                //ukončení hry
-                MessageBox.Show("Vyhrál jsi");
-                //restartování programu
-                System.Windows.Forms.Application.Restart(); ;
+                //vykreslení cihly
+                mobjCihly[i].Vykreslise();
+                
             }
 
             //posun kuličky
